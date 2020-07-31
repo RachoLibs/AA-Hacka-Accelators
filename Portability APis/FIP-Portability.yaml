@@ -1,0 +1,231 @@
+swagger: '2.0'
+info:
+  title: Financial Information Provider API - Portability
+  description: >-
+    # Summary
+
+    The Financial Information Providers (FIPs) maintain accounts of the
+    customers. The Account Aggregator may request FIP for financial information
+    of the customers using explicit electronic consents obtained through a
+    direct customer interaction. The API defined here is implemented by the FIP
+    to enable Account Aggregators to discover a customer’s account, perform
+    account linking and enable query of the financial information based on
+    explicit digitally signed electronic consent. The FIP further maintains the
+    active status of the consents and exposes the Notification method so AA can
+    notify it about the changes in the status of consent and account delinking
+    requests etc.
+
+
+    ---
+  version: 1.1.1
+  contact:
+    email: aa-api@rebit.org.in
+tags:
+  - name: Account Discovery and Linking
+    description: Update only related to Portability
+schemes:
+  - https
+securityDefinitions:
+  AA_api_key:
+    type: apiKey
+    name: aa_api_key
+    in: header
+security:
+  - AA_api_key: []
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /Accounts/link:
+    post:
+      tags:
+        - Account Discovery and Linking
+      description: >-
+        This API would be used for initiating an account link request to link
+        selected account/s with the AA customer address.
+
+        <br>Note: "Request Body Example Value" and "Responses Example Value"
+        given below is for illustrative purposes only.
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/AccLinkRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AccLinkResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+definitions:
+  AccLinkRequest:
+    type: object
+    required:
+      - ver
+      - timestamp
+      - txnid
+      - Customer
+    properties:
+      ver:
+        type: string
+        description: The version of the API
+        example: '1.0'
+        xml:
+          attribute: true
+      timestamp:
+        type: string
+        description: Current Timestamp
+        format: date-time
+        example: '2018-05-09T17:51:18.412Z'
+        xml:
+          attribute: true
+      txnid:
+        type: string
+        description: >-
+          An unique transaction identifier used for providing an end to end
+          traceability.
+        example: f35761ac-4a18-11e8-96ff-0277a9fbfedc
+        xml:
+          attribute: true
+      Customer:
+        type: object
+        required:
+          - id
+          - Accounts
+        description: Customer Identification Details
+        properties:
+          id:
+            type: string
+            example: customer_identifier@AA_identifier
+            description: Customer Address with the AA
+            xml:
+              attribute: true
+          Accounts:
+            description: 'A list of customer''s accounts to be linked '
+            type: array
+            items:
+              $ref: '#/definitions/Account'
+    xml:
+      name: AccLinkRequest
+      namespace: 'https://standards.rebit.org.in/aa'
+  AccLinkResponse:
+    description: A list of account that are linked
+    required:
+      - ver
+      - timestamp
+      - txnid
+      - AuthenticatorType
+      - RefNumber
+    properties:
+      ver:
+        type: string
+        description: The version of the API
+        example: '1.0'
+        xml:
+          attribute: true
+      timestamp:
+        type: string
+        description: Creation timestamp of the message which will be updated at each call
+        format: date-time
+        example: '2018-09-22T06:13:30.967+0000'
+        xml:
+          attribute: true
+      txnid:
+        type: string
+        description: >-
+          An unique transaction identifier used for providing an end to end
+          traceability.
+        example: f35761ac-4a18-11e8-96ff-0277a9fbfedc
+        xml:
+          attribute: true
+      AuthenticatorType:
+        type: string
+        enum:
+          - DIRECT
+          - TOKEN
+        description: |-
+          There are two kinds of authenticators that the FIP may support
+           (1) FIP Direct Authenticator- The authenticator obtains confirmation through an interaction directly with the customer.
+           (2) FIP Authorization Token-based Authenticator- In this case, a token (e.g., a short-lived one-time password) is issued to the customer, which the customer can then supply to the AA for subsequent forwarding to the FIP. This provides a confirmation to the FIP that the customer has approved the linking request to AA.
+        example: TOKEN
+      RefNumber:
+        type: string
+        description: A UUID string to coorelate the ACCOUNTS-LINKED notification
+        example: f6b1482e-8f08-11e8-862a-02552b0d3c36
+    xml:
+      name: AccLinkResponse
+      namespace: 'https://standards.rebit.org.in/aa'
+  Account:
+    type: object
+    required:
+      - FIType
+      - accType
+      - accRefNumber
+      - maskedAccNumber
+      - portedAAcustomerId
+    properties:
+      FIType:
+        type: string
+        description: The FIType which the account belongs to.
+        enum:
+          - DEPOSIT
+          - TERM-DEPOSIT
+          - RECURRING_DEPOSIT
+          - SIP
+          - CP
+          - GOVT_SECURITIES
+          - EQUITIES
+          - BONDS
+          - DEBENTURES
+          - MUTUAL_FUNDS
+          - ETF
+          - IDR
+          - CIS
+          - AIF
+          - INSURANCE_POLICIES
+          - NPS
+          - INVIT
+          - REIT
+          - OTHER
+        xml:
+          attribute: true
+      accType:
+        type: string
+        description: The Account Type/ Sub FIType
+        enum:
+          - SAVINGS
+          - CURRENT
+          - DEFAULT
+          - NRE
+          - NRO
+        xml:
+          attribute: true
+      accRefNumber:
+        type: string
+        description: >-
+          Internal unique FIP Account Reference Number which links with the
+          masked account number.
+        example: BANK11111111
+        xml:
+          attribute: true
+      portedAAcustomerId:
+        type: string
+        description: >-
+          Provide the AA customerid if the account is ported from another AA.
+        example: customer_identifier@AA_identifier
+        xml:
+          attribute: true
+      maskedAccNumber:
+        type: string
+        description: Masked account number
+        example: XXXXXXX3468
+        xml:
+          attribute: true
