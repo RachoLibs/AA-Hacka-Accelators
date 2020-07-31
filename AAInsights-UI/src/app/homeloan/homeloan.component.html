@@ -1,0 +1,304 @@
+<!-- <div class="row">
+    <div class="col-sm-12 header-div">
+      Finance Management (FIU)
+    </div>
+  </div> -->
+  <div class="row">
+    <div>
+      <app-header-fiu></app-header-fiu>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-7 fiu-content">
+        <div>
+           <h2> Loan Application </h2>
+        </div>
+        <form [formGroup]="loanForm" (ngSubmit)="onSubmit()">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Personal Details
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Name</mat-label>
+                                <input type="text" matInput formControlName='personName' required>
+                                <mat-error *ngIf="consentDetailControls.personName.invalid">Name is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>DOB</mat-label>
+                                <input matInput [matDatepicker]="pickerdob" formControlName="dob" required>
+                                <mat-datepicker-toggle matSuffix [for]="pickerdob"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerdob></mat-datepicker>
+                                <mat-error *ngIf="consentDetailControls.dob.invalid">DOB is Required</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>PAN</mat-label>
+                                <input type="text" matInput formControlName='panNo' required>
+                                <mat-error *ngIf="consentDetailControls.panNo.invalid">PAN is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Loan Details
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Amount (Rs.)</mat-label>
+                                <input type="text" matInput formControlName='amount' required>
+                                <mat-error *ngIf="consentDetailControls.amount.invalid">Amount is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Tenure (in Months)</mat-label>
+                                <input type="text" matInput formControlName='tenure' required>
+                                <mat-error *ngIf="consentDetailControls.tenure.invalid">Tenure is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>EMI (Rs.)</mat-label>
+                                <input type="text" matInput formControlName='emi' required>
+                                <mat-error *ngIf="consentDetailControls.emi.invalid">EMI is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Consent Details
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <!-- <div class="row">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Purpose</mat-label>
+                                <input type="text" matInput formControlName='purpose' required>
+                                <mat-error *ngIf="consentDetailControls.purpose.invalid">Purpose is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Consent Type</mat-label>
+                                <mat-select formControlName="consentType" multiple>
+                                    <mat-option *ngFor="let item of consentTypesArr" [value]="item">{{ item }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="consentDetailControls.consentType.invalid">Type is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Data Range (In months)</mat-label>
+                                <input type="text" matInput formControlName='dateRange' required>
+                                <mat-error *ngIf="consentDetailControls.dateRange.invalid">Date range is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Consent Mode</mat-label>
+                                <mat-select formControlName="consentMode" required>
+                                    <mat-option [value]="item" *ngFor="let item of consentModeArr">{{ item }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="consentDetailControls.consentMode.invalid">Consent Mode is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Frequency</mat-label>
+                                <mat-select formControlName="frequencyUnit" required>
+                                    <mat-option [value]="item" *ngFor="let item of unitArr">{{ item }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="consentDetailControls.frequencyUnit.invalid">Unit is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Purpose</mat-label>
+                                <mat-select formControlName='purpose' required>
+                                    <mat-option [value]="item" *ngFor="let item of purposeArr">{{ item }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="consentDetailControls.purpose.invalid">Purpose is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 input-heading" matTooltip="Info about the action"><b>Data Life</b> (How long consumer is allowed to store data)</div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Unit</mat-label>
+                                <mat-select formControlName="dataLifeUnit" required>
+                                    <mat-option [value]="item" *ngFor="let item of unitArr">{{ item }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="consentDetailControls.dataLifeUnit.invalid">Unit is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Value</mat-label>
+                                <input type="text" matInput formControlName='dataLifeValue' required>
+                                <mat-error *ngIf="consentDetailControls.dataLifeValue.invalid">Value is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 input-heading"><b>Frequency</b> (Frequency information for periodic information access)</div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select Unit</mat-label>
+                                <mat-select formControlName="frequencyUnit" required>
+                                    <mat-option [value]="item" *ngFor="let item of unitArr">{{ item }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="consentDetailControls.frequencyUnit.invalid">Unit is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Value</mat-label>
+                                <input type="text" matInput formControlName='frequencyValue' required>
+                                <mat-error *ngIf="consentDetailControls.frequencyValue.invalid">Value is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 input-heading"><b>FI Date Range</b> (Specify the datetime range for querying the financial information)</div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>From</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="fiDataFrom" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error *ngIf="consentDetailControls.fiDataFrom.invalid">Date is Required</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>To</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="fiDataTo" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                                <mat-error *ngIf="consentDetailControls.fiDataTo.invalid">Date is Required</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Consent Start</mat-label>
+                                <input matInput [matDatepicker]="picker2" [min]="consentMinDate"
+                                    formControlName="consentStart" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                                <mat-error *ngIf="consentDetailControls.consentStart.invalid">Date is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Consent Expiry</mat-label>
+                                <input matInput [matDatepicker]="picker3" [min]="consentMinDate"
+                                    formControlName="consentExpiry" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                <mat-datepicker #picker3></mat-datepicker>
+                                <mat-error *ngIf="consentDetailControls.consentExpiry.invalid">Date is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Consent Mode</mat-label>
+                                <mat-select formControlName="consentMode" required>
+                                    <mat-option [value]="item" *ngFor="let item of consentModeArr">{{ item }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="consentDetailControls.consentMode.invalid">Consent Mode is Required
+                                </mat-error>
+                            </mat-form-field>
+                            </div>
+                            <div class="col-sm-6">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Fetch Type</mat-label>
+                                    <mat-select formControlName="fetchType" required>
+                                        <mat-option [value]="item" *ngFor="let item of fetchTypeArr">{{ item }}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="consentDetailControls.fetchType.invalid">Fetch type is Required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Consent Types</mat-label>
+                                    <mat-select formControlName="consentType" multiple>
+                                        <mat-option *ngFor="let item of consentTypesArr" [value]="item">{{ item }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-6">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>FI Types</mat-label>
+                                    <mat-select formControlName="fiType" multiple>
+                                        <mat-option *ngFor="let item of fiTypesArr" [value]="item">{{ item }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        
+                </mat-expansion-panel>
+            </mat-accordion>
+            <div class="submit-div">
+                <button class="btn-style btn-success save-btn">Save</button>
+                <button type="submit" class="btn-style btn-primary submit-btn">Submit</button>
+                <button class="btn-style btn-warning cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

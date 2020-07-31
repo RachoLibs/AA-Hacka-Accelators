@@ -1,0 +1,72 @@
+@import '../../sass-styles/sass-styling.scss';
+
+header .main-nav {
+    @include position(fixed, 0);
+    width: 100%;
+    z-index: 4000;
+    padding: 20px 20px 13px;
+    // background-color: $color-header-bckgrnd;
+    background: linear-gradient(to right, #cc392f 0, #f44336 100%) !important;
+
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: $color-white;
+}
+
+.ibap-txt,
+.seperator {
+    @include font(22px, $color-white !important, 400);
+}
+
+.seperator {
+    @include position(relative, -9px);
+    margin-right: 10px;
+}
+
+.navbar-link {
+    @include font(16px, $color-white, 600);
+    margin-right: 15px;
+    cursor: pointer;
+    transition: color .5s;
+
+    &:hover {
+        color: $color-navbar-hover !important;
+    }
+}
+
+.ibap-txt {
+    @include position(relative, -7px);
+    vertical-align: bottom
+}
+
+.nav-items-content {
+    @include position(relative, 5px);
+}
+
+.list-inline {
+    margin-right: 15px;
+}
+
+a{
+    color: unset;
+}
+
+.active{
+    color: bisque;
+}
+
+
+.iconalign {
+    vertical-align: bottom;
+  }
+
+.heading{
+    font-size: x-large;
+}
+
+.logo{
+    width: 50px;
+    height: 40px;
+    padding: 5px;
+}

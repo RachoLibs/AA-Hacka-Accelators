@@ -1,0 +1,200 @@
+<div class="row">
+    <div>
+      <app-header></app-header>
+    </div>
+</div>
+<div class="row contentrow">
+    <mat-drawer-container class="example-container" autosize>
+        <mat-drawer #drawer class="example-sidenav" mode="side">
+          <h3 class="infoheader">Consent Sensitivity</h3>
+          <p>– Powered by advanced AI/ML technology, our smart sensitivity score engine analyzes the consent details and calculates a sensitivity score (Low, Medium, High) for your consent that best describes the sensitivity of the details to be shared with FIU. It considers following factors while calculating the score</p>
+          <ul>
+            <li>Consent Type: Profile / Balance / Transaction</li>
+            <li>Consent Mode: Real time data, Historical data</li>
+            <li>Frequency: One Time, Daily, Monthly, Quarterly, Half Yearly, Yearly, Unlimited</li>
+            <li>Data Range</li>
+          </ul>
+          <p>Based on these parameters, it assigns a score to your consent. Consent score will determine the authentication mechanism for approving the consent and first time data sharing. </p>
+          <ul>
+              <li>Low – WoW!
+                <p>You are sharing less sensitive data. You are good to go.</p>
+                <p>o	No need to additional authentication.</p>
+              </li>
+
+              <li>Medium – Be Mindful!
+                <p>You are sharing some sensitive data. </p>
+                <p>o	You need to identify yourself with additional OTP based authentication.</p>
+              </li>
+              <li>High – Be careful!
+                <p>You are sharing very sensitive data.</p>
+                <p>o	You need to identify yourself with additional OTP based</p>
+                <p>o	You will be required to authenticate your first time data sharing with FIU.</p>
+              </li>
+          </ul>
+
+          <h3 class="infoheader">Insights Driven Alerts</h3>
+          <p>– Our AI/ML based smart rule engine derives the industry standards about data requirements based on the</p>
+          <ul>
+            <li>Purpose for which data is shared</li>
+            <li>Type of data (e.g. Deposit, SIP, Mutual Fund etc.) to be shared</li>
+            <li>Volume of data (e.g. 3 months v/s 6 months transaction details) to be shared with FIU</li>
+          </ul>
+          <p>If the engine detects any anomaly in the data requested by your FIU and the industry benchmark then it will alert you by sending a notification to your registered mobile so that you can take informed decision and share the appropriate data without worrying about over sharing of data.</p>
+          
+          <!-- <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+          <button (click)="showFiller = !showFiller" mat-raised-button>
+            Toggle extra text and more
+          </button> -->
+        </mat-drawer>
+      
+        <div class="example-sidenav-content">
+            <div class="row detailrow">
+
+                <mat-toolbar>
+                    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                      <mat-icon>menu</mat-icon>
+                    </button>
+                    <span>Consent Details</span>
+                    <!-- <button type="button" mat-button (click)="check()" class="buttoncs">
+                     Check
+                  </button> -->
+                    <span class="example-spacer"></span>
+                    <button type="button" mat-button (click)="drawer.toggle()" class="buttoncs">
+                        What is Consent Sensitivity and Alert?
+                    </button>
+                  </mat-toolbar>
+               
+            <!-- </div> 
+            <div class="row detailrow"> -->
+              <div class="example-container-table mat-elevation-z8">
+                <mat-table #table [dataSource]="dataSource" matSort>
+              
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+              
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="position">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+                  </ng-container>
+              
+                  <!-- Name Column -->
+                 
+
+                  <ng-container matColumnDef="consentpurpose">
+                    <mat-header-cell *matHeaderCellDef> Purpose </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.purpose}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="fiu">
+                    <mat-header-cell *matHeaderCellDef> FIU </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.fiu}} </mat-cell>
+                  </ng-container>
+              
+              
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+                  </ng-container>
+
+                  
+
+                  <ng-container matColumnDef="sensitivity">
+                    <mat-header-cell *matHeaderCellDef> Sensitivity </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+                        <div *ngIf="element.sensitivity === 'Low'"><span class="item green"></span>{{element.sensitivity}}</div>
+                        <div *ngIf="element.sensitivity === 'Medium'"><span class="item amber"></span>{{element.sensitivity}}</div>
+                        <div *ngIf="element.sensitivity === 'High'"><span class="item red"></span>{{element.sensitivity}}</div>
+                      </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="alert">
+                      <mat-header-cell *matHeaderCellDef> Alert </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> 
+                          <div *ngIf="element.alert === '1'"><mat-icon class="alerticon">warning</mat-icon></div>
+                          <div *ngIf="element.alert === '0'"></div>
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                        <mat-cell *matCellDef="let element" [ngClass]="{'red': element.action === 'Rejected', 'amber': element.action === 'Pending','green': element.action === 'Approved' }"> {{element.action}} </mat-cell>
+                      </ng-container>
+              
+              
+                  <!-- Expanded Content Column - The detail row is made up of this one column -->
+                  <ng-container matColumnDef="expandedDetail">
+                    <mat-cell *matCellDef="let detail">
+                      <div class="row detailrow">
+                      <div class="col-md-5 consentdetails">
+                        <h5>Consent Details</h5>
+                        <ul>
+                          <li>Consent Purpose: {{detail.element.purpose}}</li>
+                          <li>Consent Mode: {{detail.element.consentMode}}</li>
+                          <li>Consent Type: {{detail.element.consentType}}</li>
+                          <li>FI Type: {{detail.element.fiType}}</li>
+                          <li>Frequency: {{detail.element.frequencyValue}} ({{detail.element.frequencyUnit}})</li>
+                          <li>FI Data Range: {{detail.element.fiDataFrom}} to {{detail.element.fiDataTo}}</li>
+                          <li>Consent Validity: {{detail.element.consentStart}} to {{detail.element.consentExpiry}}</li>
+
+                        </ul>
+                      </div>
+                      <div class="col-md-7 consentdetails">
+                        <h5>Our Observations</h5>
+                        <div class="observation">
+                          <p class="detailcs">Consent Sensitivity :
+                            <span *ngIf="detail.element.sensitivity === 'Low'" class="green">Low</span>
+                            <span *ngIf="detail.element.sensitivity === 'Medium'" class="amber">Medium</span>
+                            <span *ngIf="detail.element.sensitivity === 'High'" class="red">High</span>
+                          </p>
+                          <ul>
+                            <li>{{detail.element.fiDateMonths}} months data has been asked</li>
+                            <li>Consent type is {{detail.element.consentType}} and mode is {{detail.element.consentMode}}</li>
+                          </ul>
+                      
+                          <p class="detailcs">We recommend:
+                            <span *ngIf="detail.element.sensitivity === 'Low'" >No additional authentication</span>
+                            <span *ngIf="detail.element.sensitivity === 'Medium'" >OTP based authentication</span>
+                            <span *ngIf="detail.element.sensitivity === 'High'" >OTP based authentication for approval and first data fetch</span>
+                          </p>
+                        </div>
+                          <div class="observation" *ngIf="detail.element.alert === '1'">
+                          <p  class="detailcs">Data Volume alert : <span class="red">Cautious</span>
+                  
+                          </p>
+                          <ul>
+                            <li>{{detail.element.fiDateMonths}} months data has been asked for FI Type - {{detail.element.fiType}}</li>
+                            <li class="red">Data asked is higher than Industry standard</li>
+                          </ul>
+                      
+                          <p class="detailcs">We recommend:
+                            Verify about the data volume demand with your service provider (FIU).
+                          </p>
+                        </div>
+                        <div class="col-md-12 cdbuttondiv">
+                          <button mat-raised-button color="primary" class="cdbutton" (click)="openDialog(detail.element.id, detail.element.sensitivity,detail.element.fiu, detail.element.purpose, detail.element.action)">Approve</button>
+                          <button mat-raised-button color="warn" class="cdbutton" (click)="rejectConsent(detail.element.id)">Reject</button>
+                        </div>
+                      </div>
+                    </div>
+                    </mat-cell>
+                  </ng-container>
+              
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"
+                          matRipple 
+                          class="element-row" 
+                          [class.expanded]="expandedElement == row"
+                          (click)="expandedElement = row"></mat-row>
+                  <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+                          [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
+                          style="overflow: hidden"> 
+                  </mat-row>
+                </mat-table>
+              </div>
+            </div>
+        </div>
+      
+      </mat-drawer-container>
+</div>

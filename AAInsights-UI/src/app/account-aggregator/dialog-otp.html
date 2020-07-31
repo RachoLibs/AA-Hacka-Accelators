@@ -1,0 +1,25 @@
+<div>
+    <div *ngIf="!approve">
+    <p>The consent sensitivity is {{data.sensitivity}}</p>
+    <p class="a-o-i">Enter verification code</p>
+    <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" *ngIf="showOtpComponent" [config]="config"></ng-otp-input>
+    <div class="cdbuttondiv">
+    <button mat-raised-button color="primary" class="cdbutton" (click)="approve=true">Submit</button>
+    </div>
+    </div>
+    <div *ngIf="approve">
+         <!-- <h5  class="approvedialogheader">Consent approved</h5> -->
+         <div>
+                <h2 mat-dialog-title class="approvedialogheader">Consent Approved</h2>
+                <mat-dialog-content class="mat-typography">
+                <div>
+                    <p>Consent approved for {{data.purpose}} from {{data.fiu}}!</p>
+                </div >
+                </mat-dialog-content>
+                <mat-dialog-actions align="end">
+                    <button mat-button mat-dialog-close [mat-dialog-close]="approved">Ok</button>
+                    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+                </mat-dialog-actions>
+                </div>
+    </div>
+</div>

@@ -1,0 +1,183 @@
+@import '../../sass-styles/sass-styling.scss';
+
+.header-div {
+    padding: 22px 15px;
+    background: linear-gradient(to right, #310388 0, #120368 100%) !important;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.example-container {
+    width: 100%;
+    // height: 600px;
+    // border: 1px solid rgba(0, 0, 0, 0.5);
+    overflow: visible;
+  }
+  
+  .example-sidenav-content {
+    display: flex;
+    // height: 100%;
+    // align-items: center;
+    // justify-content: center;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
+    height: 500px;
+    max-width: 500px;
+    text-align: justify;
+  }
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+.detailrow{
+    padding: 10px;
+    padding-left: 40px;
+    width: 100%;
+}
+
+
+
+.example-container-table {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.element-row {
+  position: relative;
+}
+
+.element-row:not(.expanded) {
+  cursor: pointer;
+}
+
+.element-row:not(.expanded):hover {
+  background: #f5f5f5;
+}
+
+.element-row.expanded {
+  border-bottom-color: transparent;
+}
+
+.mat-header-cell {
+  font-size: 20px;
+  // display: grid;
+  // text-align: center;
+}
+
+mat-header-row {
+  background-color: darkgrey
+}
+
+.buttoncs{
+  background-color: darkred;
+  color: white;
+}
+
+.contentrow{
+  margin-top: 90px;
+}
+
+.item{
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.item.green{
+  background-color: green;
+}
+
+.item.amber{
+  background-color: #FFC200;
+  }
+
+.item.red{
+  background-color: red;
+}
+
+
+.green{
+  color: green;
+}
+
+.amber{
+  color: #FFC200;
+  }
+
+.red{
+  color: red;
+}
+.alerticon{
+  color: red;
+  vertical-align: middle;
+}
+
+.consentdetails{
+  padding: 10px;
+  // width: 50%;
+  background-color: aliceblue;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+}
+
+.infoheader{
+  border-style: inset;
+    // width: 400px;
+    margin-right: 10px;
+    background-color: darkred;
+    color: white;
+    padding: 5px;
+}
+
+.detailcs{
+  font-weight: bold;
+}
+
+.observation{
+  padding: 10px;
+  margin: 5px;
+  box-shadow:2px 2px 3px 5px #ccc; 
+}
+
+.cdbuttondiv{
+  text-align: right;
+  margin-top: 20px;
+}
+
+.cdbutton{
+  width: 80px;
+  margin: 5px;
+}
+
+.mat-dialog-container {
+  width: 400px !important;
+  height: 150px !important;
+}
+
+.mat-dialog-title{
+  color: green;
+}
+
+.approvedialogheader{
+  color: green;
+}
+
+.mat-column-date {
+  flex: none;
+  width: 300px;
+}
